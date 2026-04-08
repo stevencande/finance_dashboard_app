@@ -38,7 +38,7 @@ function Dashboard() {
       setLoading(true);
 
       const res = await axios.get(
-        "http://127.0.0.1:8000/api/dashboard/summary",
+        "https://your-app.onrender.com/api/dashboard/summary",
         {
           params: {
             start_date: startDate || undefined,
@@ -55,30 +55,9 @@ function Dashboard() {
     }
   };
 
-
-  // const fetchTransactions = async () => {
-  //   try {
-  //     const res = await axios.get("http://127.0.0.1:8000/api/transactions", {
-  //       params: {
-  //         start_date: startDate || undefined,
-  //         end_date: endDate || undefined,
-  //       },
-  //     });
-
-  //     setTransactions(res.data);
-  //   } catch (err) {
-  //     console.error("Transactions API error:", err);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchDashboard();
-  //   fetchTransactions();
-  // }, [startDate, endDate]);
-
   const fetchTransactions = async () => {
   try {
-    const res = await axios.get("http://127.0.0.1:8000/api/transactions", {
+    const res = await axios.get("https://your-app.onrender.com/api/transactions", {
       params: {
         start_date: startDate || undefined,
         end_date: endDate || undefined,
@@ -107,13 +86,13 @@ function Dashboard() {
     if (!form.amount || !form.date) return;
 
     if (modalType === "revenue") {
-      await axios.post("http://127.0.0.1:8000/add/revenue", {
+      await axios.post("https://your-app.onrender.com/add/revenue", {
         date: form.date,
         amount: Number(form.amount),
         source: form.category
       });
     } else {
-      await axios.post("http://127.0.0.1:8000/add/expense", {
+      await axios.post("https://your-app.onrender.com/add/expense", {
         date: form.date,
         amount: Number(form.amount),
         category: form.category
@@ -130,7 +109,7 @@ function Dashboard() {
   // ================= DELETE =================
   const handleDelete = async (t) => {
     await axios.delete(
-      `http://127.0.0.1:8000/transactions/${t.id}/${t.type}`
+      `https://your-app.onrender.com/transactions/${t.id}/${t.type}`
     );
     await Promise.all([
       fetchDashboard(),
@@ -141,7 +120,7 @@ function Dashboard() {
   const handleDeleteAll = async () => {
     if (!window.confirm("Delete ALL data?")) return;
 
-    await axios.delete("http://127.0.0.1:8000/api/transactions/all");
+    await axios.delete("https://your-app.onrender.com/api/transactions/all");
 
     await Promise.all([
       fetchDashboard(),
